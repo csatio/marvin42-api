@@ -72,6 +72,13 @@ def robot():
 
     tendencia = model.predict(df_modelo)[0]
 
+    st.markdown("--------------------")
+
+    st.markdown("Atual (fechamento):")
+    st.write(df_last['close'])
+
+    st.markdown("-5 min:")
+    st.write(df_last['close_5'])
 
 
     st.markdown("Predição    1= compra       -1=venda. Setado para |0.3|")
@@ -103,6 +110,7 @@ def robot():
             st.write(api_post('status', payload = {'token': token}))
 
 
+    st.markdown(status)
     st.markdown(datetime.now())
 
     time.sleep(60)
