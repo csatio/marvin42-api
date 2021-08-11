@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import streamlit as st 
+from PIL import Image
 from datetime import datetime
 import time
 import requests
@@ -29,6 +30,11 @@ def api_get(route):
     df = get_result(x)
     return df
 
+
+image = Image.open('Don__t_Panic_Wallpaper_by_rogueXunited.jpg')
+
+st.image(image, caption='')
+
 st.markdown("# BITCOIN BOT MARVIN 42")
 
 
@@ -40,9 +46,9 @@ def robot():
 
   token = os.environ.get('MARVIN_TOKEN')
   ticker = 'BTCUSDT'
-  
+  status=''
   iter=0
-  while iter<61:
+  while iter<720:
 
     df = api_post('cripto_quotation', {'token': token, 'ticker': ticker})
 
@@ -84,7 +90,7 @@ def robot():
     st.markdown("Predição    1= compra       -1=venda. Setado para |0.3|")
     st.markdown(tendencia)
 
-    status=''
+    
 
     if tendencia > 0.3 and status=='':
         api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
