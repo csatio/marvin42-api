@@ -72,9 +72,8 @@ def robot():
 
     tendencia = model.predict(df_modelo)[0]
 
-    texto = "atual: "+ df_last['close'] + '   -5min:' + df_last['close_5']
-    st.markdown(texto)
-    
+
+
     st.markdown("Predição    1= compra       -1=venda. Setado para |0.3|")
     st.markdown(tendencia)
 
