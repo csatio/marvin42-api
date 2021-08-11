@@ -31,6 +31,7 @@ st.markdown("# BITCOIN BOT MARVIN 42")
 
 
 def robot():
+  
   token = os.environ.get('MARVIN_TOKEN')
   ticker = 'BTCUSDT'
   df = api_post('cripto_quotation', {'token': token, 'ticker': ticker})
@@ -39,7 +40,7 @@ def robot():
   while iter<3:
     
     st.markdown(datetime.now())
-    st.write(df.tail)
+    st.write(df.tail())
 
     time.sleep(60)
     iter=iter+1
