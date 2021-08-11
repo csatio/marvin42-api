@@ -2,4 +2,4 @@ streamlit
 sklearn
 feature_engine
 xgboost
-feature_engine.categorical_encoders
+categorical_encoders
