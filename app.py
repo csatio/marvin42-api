@@ -72,6 +72,9 @@ def robot():
 
     tendencia = model.predict(df_modelo)[0]
 
+    st.markdown("Predição 1= compra  -1=venda. Setado para |0.7|")
+    st.markdown(tendencia)
+
     status=''
 
     if tendencia > 0.7 and status=='':
