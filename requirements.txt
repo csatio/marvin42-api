@@ -2,4 +2,3 @@ streamlit
 sklearn
 feature_engine
 xgboost
-pickle
