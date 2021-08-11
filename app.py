@@ -72,19 +72,19 @@ def robot():
 
     tendencia = model.predict(df_modelo)[0]
 
-    st.write(df_last)
+    st.write("atual: "+ df_last['close'] + '   -5min:' + df_last['close_5'])
 
-    st.markdown("Predição 1= compra  -1=venda. Setado para |0.7|")
+    st.markdown("Predição    1= compra       -1=venda. Setado para |0.5|")
     st.markdown(tendencia)
 
     status=''
 
-    if tendencia > 0.7 and status=='':
+    if tendencia > 0.5 and status=='':
         api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.1})
         status='comprado'
         iter_compra=iter
         st.write(api_post('status', payload = {'token': token}))
-    if tendencia < -0.7 and status=='':
+    if tendencia < -0.5 and status=='':
         api_post('sell', payload = {'token': token, 'ticker': ticker, 'quantity': 0.1})
         status='vendido'
         iter_venda=iter
