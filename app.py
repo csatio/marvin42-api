@@ -80,25 +80,25 @@ def robot():
     status=''
 
     if tendencia > 0.3 and status=='':
-        api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.1})
+        api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
         status='comprado'
         iter_compra=iter
         st.write(api_post('status', payload = {'token': token}))
     if tendencia < -0.3 and status=='':
-        api_post('sell', payload = {'token': token, 'ticker': ticker, 'quantity': 0.1})
+        api_post('sell', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
         status='vendido'
         iter_venda=iter
         st.write(api_post('status', payload = {'token': token}))
 
     if status=='comprado':
         if  iter>iter_compra+5 or iter==60:
-            api_post('sell', payload = {'token': token, 'ticker': ticker, 'quantity': 0.1})
+            api_post('sell', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
             status=''
             st.write(api_post('status', payload = {'token': token}))
 
     if status=='vendido':
         if  iter>iter_venda+5 or iter==60:
-            api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.1})
+            api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
             status=''
             st.write(api_post('status', payload = {'token': token}))
 
