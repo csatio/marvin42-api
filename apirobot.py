@@ -7,7 +7,6 @@ import os
 import pickle
 from flask import Flask
 from flask import Flask, jsonify, request
-from flasgger import Swagger
 
 
 app=Flask(__name__)
