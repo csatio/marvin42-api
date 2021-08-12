@@ -36,7 +36,7 @@ def api_get(route):
 
 
 
-@app.route('/')
+
 def robot():
   
   model = pickle.load(open('best_model_xgb.pkl', 'rb'))
@@ -100,11 +100,12 @@ def robot():
             api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
             status=''
             
-
-
     time.sleep(60)
     iter=iter+1
 
+@app.route("/")
+def index():
+    return "Robo Cripto Marvin 42"
 
 @app.route('/wakeup', methods=["POST"])
 def wakeup():
@@ -127,6 +128,3 @@ def wakeup():
     
     # my_robot é a função com o loop que realiza as compras/ vendas (conforme notebook 2_my_robot.ipynb)
     robot(tempo, token)
-
-if __name__ == '__main__':
-   app.run()
