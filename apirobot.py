@@ -45,6 +45,7 @@ def robot():
 
 
   token = os.environ.get('MARVIN_TOKEN')
+
   ticker = 'BTCUSDT'
   status=''
   iter=0
@@ -127,3 +128,5 @@ def wakeup():
     
     # my_robot é a função com o loop que realiza as compras/ vendas (conforme notebook 2_my_robot.ipynb)
     robot(tempo, token)
+
+app.run()
