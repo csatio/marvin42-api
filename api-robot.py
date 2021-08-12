@@ -6,6 +6,9 @@ import requests
 import os
 import pickle
 from flask import Flask
+from flask import Flask, jsonify, request
+from flasgger import Swagger
+
 
 app=Flask(__name__)
 
@@ -115,6 +118,9 @@ def wakeup():
     except requests.exceptions.ReadTimeout: 
         pass
     """
+
+    token = os.environ.get('MARVIN_TOKEN')
+
     tempo = int(request.form.get("time"))
     if not tempo:
         return "Group token must be provided", None
