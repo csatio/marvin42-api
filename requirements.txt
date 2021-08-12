@@ -1,9 +1,7 @@
-streamlit
 sklearn
 feature_engine
 xgboost
 category_encoders
-flasgger
 certifi==2021.5.30
 charset-normalizer==2.0.4
 click==8.0.1
