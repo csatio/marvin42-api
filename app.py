@@ -1,7 +1,5 @@
 import pandas as pd
 import numpy as np
-import streamlit as st 
-from PIL import Image
 from datetime import datetime
 import time
 import requests
@@ -34,11 +32,7 @@ def api_get(route):
     return df
 
 
-image = Image.open('Don__t_Panic_Wallpaper_by_rogueXunited.jpg')
 
-st.image(image, caption='')
-
-st.markdown("# BITCOIN BOT MARVIN 42")
 
 @app.route('/')
 def robot():
@@ -81,46 +75,49 @@ def robot():
 
     tendencia = model.predict(df_modelo)[0]
 
-    st.markdown("--------------------")
-
-    st.markdown("Atual (fechamento):")
-    st.write(df_last['close'])
-
-    st.markdown("-5 min:")
-    st.write(df_last['close_5'])
-
-
-    st.markdown("Predição    1= compra       -1=venda. Setado para |0.3|")
-    st.markdown(tendencia)
-
-    
 
     if tendencia > 0.3 and status=='':
         api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
         status='comprado'
         iter_compra=iter
-        st.write(api_post('status', payload = {'token': token}))
+     
     if tendencia < -0.3 and status=='':
         api_post('sell', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
         status='vendido'
         iter_venda=iter
-        st.write(api_post('status', payload = {'token': token}))
+   
 
     if status=='comprado':
         if  iter>iter_compra+5 or iter==60:
             api_post('sell', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
             status=''
-            st.write(api_post('status', payload = {'token': token}))
-
+            
     if status=='vendido':
         if  iter>iter_venda+5 or iter==60:
             api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
             status=''
-            st.write(api_post('status', payload = {'token': token}))
+            
 
-
-    st.markdown(status)
-    st.markdown(datetime.now())
 
     time.sleep(60)
     iter=iter+1
+
+
+@app.route('/wakeup', methods=["POST"])
+def wakeup():
+    """
+    Exemplo de Utilização:
+    
+    import requests
+    url = 'http://127.0.0.1:5000/wakeup'
+    try:
+        x = requests.post(, data = {'time': 10}, timeout=6) 
+    except requests.exceptions.ReadTimeout: 
+        pass
+    """
+    tempo = int(request.form.get("time"))
+    if not tempo:
+        return "Group token must be provided", None
+    
+    # my_robot é a função com o loop que realiza as compras/ vendas (conforme notebook 2_my_robot.ipynb)
+    robot(tempo, token)
