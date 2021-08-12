@@ -7,6 +7,9 @@ import time
 import requests
 import os
 import pickle
+from flask import Flask
+
+app=Flask(__name__)
 
 urlbase = 'https://mighty-bastion-45199.herokuapp.com/'
 
@@ -37,7 +40,7 @@ st.image(image, caption='')
 
 st.markdown("# BITCOIN BOT MARVIN 42")
 
-
+@app.route('/')
 def robot():
   
   model = pickle.load(open('best_model_xgb.pkl', 'rb'))
@@ -121,7 +124,3 @@ def robot():
 
     time.sleep(60)
     iter=iter+1
-
-if __name__ == '__main__':
-    robot()
-    
