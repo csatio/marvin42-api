@@ -34,21 +34,26 @@ def api_get(route):
     return df
 
 
+token = os.environ.get('MARVIN_TOKEN')
 
 
-
-def robot():
+def robot(tempo, token):
   
   model = pickle.load(open('best_model_xgb.pkl', 'rb'))
 
 
 
-  token = os.environ.get('MARVIN_TOKEN')
+  
 
   ticker = 'BTCUSDT'
   status=''
   iter=0
-  while iter<720:
+
+  print('-------------------')
+  print(f"@{pd.to_datetime('now')}")
+
+
+  while iter<tempo:
 
     df = api_post('cripto_quotation', {'token': token, 'ticker': ticker})
 
@@ -80,6 +85,7 @@ def robot():
 
 
     if tendencia > 0.3 and status=='':
+        print(f'Comprando {str(0.02)} {ticker}')
         api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
         status='comprado'
         iter_compra=iter
@@ -97,15 +103,18 @@ def robot():
             
     if status=='vendido':
         if  iter>iter_venda+5 or iter==60:
+            print(f'Recomprando {str(0.02)} {ticker}')
             api_post('buy', payload = {'token': token, 'ticker': ticker, 'quantity': 0.02})
             status=''
             
     time.sleep(60)
     iter=iter+1
 
+
 @app.route("/")
 def index():
     return "Robo Cripto Marvin 42"
+
 
 @app.route('/wakeup', methods=["POST"])
 def wakeup():
@@ -128,3 +137,5 @@ def wakeup():
     
     # my_robot é a função com o loop que realiza as compras/ vendas (conforme notebook 2_my_robot.ipynb)
     robot(tempo, token)
+
+app.run()
