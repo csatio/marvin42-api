@@ -41,10 +41,6 @@ def robot(tempo, token):
   
   model = pickle.load(open('best_model_xgb.pkl', 'rb'))
 
-
-
-  
-
   ticker = 'BTCUSDT'
   status=''
   iter=0
